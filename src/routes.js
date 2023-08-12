@@ -18,6 +18,11 @@ export const routes = [
     method: 'POST',
     path: getRoutePath('/tasks'),
     handler: (request, response) => {
+
+      if(request.body.completed_at) {
+        return response.writeHead(400).end("completed_at must be empty")
+      }
+
       request.body.completed_at = null
 
       const task = {
@@ -25,30 +30,34 @@ export const routes = [
         ...request.body
       }
 
-      database.insert('task', task)
+      database.insert('tasks', task)
 
       return response.writeHead(201).end()
     }
   },
   {
     method: 'PUT',
-    path: getRoutePath('/tasks'),
+    path: getRoutePath('/tasks/:id'),
     handler: (request, response) => {
 
     }
   },
   {
     method: 'PATCH',
-    path: getRoutePath('/tasks'),
+    path: getRoutePath('/tasks/:id/complete'),
     handler: (request, response) => {
 
     }
   },
   {
     method: 'DELETE',
-    path: getRoutePath('/tasks'),
+    path: getRoutePath('/tasks/:id'),
     handler: (request, response) => {
+      const { id } = request.params
 
+      database.delete('tasks', id)
+
+      return response.writeHead(204).end()
     }
   },
 ]

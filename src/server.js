@@ -1,5 +1,5 @@
 import http from 'node:http'
-import { json } from './middlewares/json';
+import { json } from './middlewares/json.js';
 import { routes } from './routes.js';
 import { getQueryParams } from './utils/getQueryParams.js'
 
