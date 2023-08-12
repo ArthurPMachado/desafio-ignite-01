@@ -46,6 +46,8 @@ export class Database {
       
       this.#database[table][rowIndex] = { id, ...data }
       this.#persist()
+
+      return false
     }
 
     return true
@@ -60,6 +62,8 @@ export class Database {
       this.#database[table][rowIndex].completed_at = now_date
       this.#database[table][rowIndex].updated_at = now_date
       this.#persist()
+
+      return false
     }
 
     return true
@@ -71,6 +75,8 @@ export class Database {
     if(rowIndex > -1) {
       this.#database[table].splice(rowIndex, 1)
       this.#persist()
+
+      return false
     }
 
     return true
