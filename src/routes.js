@@ -65,7 +65,7 @@ export const routes = [
       const isDataNotFound = database.update('tasks', id, new_task)
 
       if(isDataNotFound) {
-        return response.writeHead(200).end("Task not found on database")
+        return response.writeHead(404).end("Task not found on database")
       }
 
       return response.writeHead(204).end()
@@ -80,7 +80,7 @@ export const routes = [
       const isDataNotFound = database.updateCompletion('tasks', id)
 
       if(isDataNotFound) {
-        return response.writeHead(200).end("Task not found on database")
+        return response.writeHead(404).end("Task not found on database")
       }
 
       return response.writeHead(204).end()
@@ -95,7 +95,7 @@ export const routes = [
       const isDataNotFound = database.delete('tasks', id)
 
       if(isDataNotFound) {
-        return response.writeHead(200).end("Task not found on database")
+        return response.writeHead(404).end("Task not found on database")
       }
 
       return response.writeHead(204).end()
