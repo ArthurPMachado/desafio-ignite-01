@@ -47,11 +47,12 @@ export class Database {
       this.#database[table][rowIndex] = { id, ...data }
       this.#persist()
     }
+
+    return true
   }
 
   updateCompletion(table, id) {
     const rowIndex = this.#database[table].findIndex(row => row.id === id)
-
     
     if(rowIndex > -1) {
       const now_date = new Date().toISOString()
@@ -60,6 +61,8 @@ export class Database {
       this.#database[table][rowIndex].updated_at = now_date
       this.#persist()
     }
+
+    return true
   }
 
   delete(table, id) {
@@ -69,5 +72,7 @@ export class Database {
       this.#database[table].splice(rowIndex, 1)
       this.#persist()
     }
+
+    return true
   }
 }
