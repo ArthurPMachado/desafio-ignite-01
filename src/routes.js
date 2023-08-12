@@ -40,6 +40,20 @@ export const routes = [
     path: getRoutePath('/tasks/:id'),
     handler: (request, response) => {
 
+      const { id } = request.params
+      const { title, description } = request.body
+
+      const new_task = {
+        id,
+        title,
+        description,
+        update_at: new Date().toISOString(),
+        completed_at: null
+      }
+
+      database.update('tasks', id, new_task)
+
+      return response.writeHead(204).end()
     }
   },
   {

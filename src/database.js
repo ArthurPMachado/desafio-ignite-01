@@ -41,6 +41,8 @@ export class Database {
     const rowIndex = this.#database[table].findIndex(row => row.id === id)
 
     if(rowIndex > -1) {
+      data.created_at = this.#database[table][rowIndex].created_at
+
       this.#database[table][rowIndex] = { id, ...data }
       this.#persist()
     }
