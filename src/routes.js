@@ -19,6 +19,12 @@ export const routes = [
     path: getRoutePath('/tasks'),
     handler: (request, response) => {
 
+      const { body } = request
+
+      if(!body.title || !body.description) {
+        return response.writeHead(400).end(JSON.stringify('Title and description are mandatory'))
+      }
+
       if(request.body.completed_at) {
         return response.writeHead(400).end("completed_at must be empty")
       }
@@ -40,14 +46,19 @@ export const routes = [
     path: getRoutePath('/tasks/:id'),
     handler: (request, response) => {
 
+      const { body } = request
+
+      if(!body.title || !body.description) {
+        return response.writeHead(400).end(JSON.stringify('Title and/or description are mandatory'))
+      }
+
       const { id } = request.params
-      const { title, description } = request.body
+      const { title, description } = body
 
       const new_task = {
         id,
         title,
         description,
-        update_at: new Date().toISOString(),
         completed_at: null
       }
 
@@ -60,7 +71,11 @@ export const routes = [
     method: 'PATCH',
     path: getRoutePath('/tasks/:id/complete'),
     handler: (request, response) => {
+      const { id } = request.params
 
+      database.updateCompletion('tasks', id)
+
+      return response.writeHead(204).end()
     }
   },
   {

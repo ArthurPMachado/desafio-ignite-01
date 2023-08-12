@@ -42,8 +42,22 @@ export class Database {
 
     if(rowIndex > -1) {
       data.created_at = this.#database[table][rowIndex].created_at
-
+      data.updated_at = new Date().toISOString(),
+      
       this.#database[table][rowIndex] = { id, ...data }
+      this.#persist()
+    }
+  }
+
+  updateCompletion(table, id) {
+    const rowIndex = this.#database[table].findIndex(row => row.id === id)
+
+    
+    if(rowIndex > -1) {
+      const now_date = new Date().toISOString()
+      
+      this.#database[table][rowIndex].completed_at = now_date
+      this.#database[table][rowIndex].updated_at = now_date
       this.#persist()
     }
   }
