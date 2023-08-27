@@ -1,2 +1,2 @@
-# desafio-ignite-01
-Desafio para consolidar os fundamentos em node
+# exercicios para relembrar bases do node
+
